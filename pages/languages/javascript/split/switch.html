@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominando a Instrução switch em JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+
+<body>
+    <article>
+        <header>
+            <h1>Dominando a Instrução <code class="hl-keyword">switch</code> em JavaScript</h1>
+            <blockquote>
+                <p><strong>Resumo:</strong> Descubra como organizar múltiplos caminhos e decisões no seu código de forma limpa e elegante usando a instrução <code class="hl-keyword">switch</code>, sem se perder em cadeias intermináveis de <code>if...else</code>.</p>
+                <p><strong>Nível:</strong> Iniciante Absoluto | <strong>Leitura:</strong> ~6 min</p>
+            </blockquote>
+        </header>
+
+        <section>
+            <h2>1. O que é isso na prática? (Sem Tecniquês)</h2>
+            <p>A instrução <strong><code class="hl-keyword">switch</code></strong> é um mecanismo de controle de fluxo no JavaScript. Em palavras simples, ela funciona como um "controlador de tráfego" ou um desvio de trilho de trem para o seu programa. Quando você tem uma informação específica e precisa executar ações diferentes dependendo do seu valor, o <code class="hl-keyword">switch</code> avalia essa informação uma única vez e direciona a execução do código exatamente para a opção correspondente.</p>
+        </section>
+
+        <section>
+            <h2>2. A Analogia do Mundo Real</h2>
+            <p>Imagine uma <strong>estação de triagem de encomendas ou um pátio ferroviário</strong>:</p>
+            <ul>
+                <li>Uma encomenda chega com uma etiqueta indicando a cidade de destino (o valor a ser testado).</li>
+                <li>O funcionário da triagem (o <code class="hl-keyword">switch</code>) lê a etiqueta apenas uma vez e direciona o pacote para a esteira específica daquela cidade (o <code class="hl-keyword">case</code>).</li>
+                <li>Se a etiqueta indicar "São Paulo", a encomenda vai para a esteira de São Paulo; se for "Rio de Janeiro", vai para a esteira do Rio.</li>
+                <li>E se a etiqueta trouxer uma cidade desconhecida ou sem cadastro, a encomenda é enviada para o setor de <strong>achados e perdidos</strong> (o bloco <code class="hl-keyword">default</code>), garantindo que nada fique sem tratamento.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Qual problema isso resolve?</h2>
+            <p>Quando um programa precisa tomar decisões baseadas em um único valor que assume várias opções, o caminho comum de um iniciante é criar uma longa sequência de condições com <code>if...else if...else</code>.</p>
+            <p>À medida que o número de opções cresce, essa lista de <code>if...else</code> torna-se poluída, difícil de ler e complicada de manter. Além disso, o computador precisa reavaliar as expressões a cada linha de condição.</p>
+            <p>O <code class="hl-keyword">switch</code> resolve esse problema ao agrupar todas as alternativas sob uma única estrutura organizada, tornando a intenção do código clara e legível.</p>
+        </section>
+
+        <section>
+            <h2>4. Quebrando a Abstração (Anatomia do Código)</h2>
+            <p>Veja a estrutura básica de uma instrução <code class="hl-keyword">switch</code> em JavaScript:</p>
+            <pre><code><span class="hl-keyword">switch</span> (expressao) {
+  <span class="hl-keyword">case</span> valor1<span class="hl-punctuation">:</span>
+    <span class="hl-comment">// Código executado se expressao === valor1</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  <span class="hl-keyword">case</span> valor2<span class="hl-punctuation">:</span>
+    <span class="hl-comment">// Código executado se expressao === valor2</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  <span class="hl-keyword">default</span><span class="hl-punctuation">:</span>
+    <span class="hl-comment">// Código executado se nenhum caso corresponder</span>
+}</code></pre>
+            <p>Dissecando cada elemento da sintaxe:</p>
+            <dl>
+                <dt><code class="hl-keyword">switch</code></dt>
+                <dd>A palavra reservada da linguagem que inicia o bloco de verificação.</dd>
+
+                <dt><code>(expressao)</code></dt>
+                <dd>A variável ou valor que será avaliado uma única vez.</dd>
+
+                <dt><code class="hl-keyword">case</code> <code>valor1</code><code class="hl-punctuation">:</code></dt>
+                <dd>Rótulo que define uma opção de teste. O JavaScript compara a <code>expressao</code> com o <code>valor1</code> usando <strong>igualdade estrita</strong> (<code class="hl-operator">===</code>), o que exige que o valor e o tipo de dado sejam idênticos.</dd>
+
+                <dt><code class="hl-keyword">break</code><code class="hl-punctuation">;</code></dt>
+                <dd>O comando de interrupção. Ele avisa ao JavaScript para sair do bloco <code class="hl-keyword">switch</code> assim que a tarefa do caso for concluída.</dd>
+
+                <dt><code class="hl-keyword">default</code><code class="hl-punctuation">:</code></dt>
+                <dd>O bloco de reserva opcional. Ele só é executado se nenhuma das opções anteriores combinar com a expressão.</dd>
+
+                <dt><code class="hl-punctuation">{</code> e <code class="hl-punctuation">}</code></dt>
+                <dd>As chaves que delimitam todo o corpo da instrução <code class="hl-keyword">switch</code>.</dd>
+            </dl>
+        </section>
+
+        <section>
+            <h2>5. Exemplo Prático Comentado</h2>
+            <p>Abaixo está um código que gerencia a movimentação de um personagem em um jogo com base no comando recebido:</p>
+            <pre><code><span class="hl-comment">// Variável que guarda a direção atual do personagem</span>
+<span class="hl-keyword">let</span> direcao <span class="hl-operator">=</span> <span class="hl-string">"esquerda"</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// O switch avalia a variável 'direcao'</span>
+<span class="hl-keyword">switch</span> (direcao) {
+  <span class="hl-keyword">case</span> <span class="hl-string">"cima"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Mover personagem para CIMA"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span> <span class="hl-comment">// Encerra o switch após mover</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"baixo"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Mover personagem para BAIXO"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"esquerda"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Mover personagem para a ESQUERDA"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span> <span class="hl-comment">// Este caso será executado!</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"direita"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Mover personagem para a DIREITA"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  <span class="hl-keyword">default</span><span class="hl-punctuation">:</span>
+    <span class="hl-comment">// Executado se a direção for inválida ou desconhecida</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Comando de direção inválido"</span>)<span class="hl-punctuation">;</span>
+}
+<span class="hl-comment">// Saída impressa no console: "Mover personagem para a ESQUERDA"</span></code></pre>
+        </section>
+
+        <section>
+            <h2>6. Cuidado com a Pegadinha (Erros Comuns)</h2>
+
+            <section>
+                <h3>Pegadinha 1: O "Efeito Cascata" por esquecer o <code class="hl-keyword">break</code> (<em>Fall-through</em>)</h3>
+                <p>Se você esquecer a instrução <code class="hl-keyword">break</code> ao final de um <code class="hl-keyword">case</code>, o programa não para por ali! O JavaScript continuará executando as linhas dos casos seguintes, mesmo que esses outros casos não correspondam ao valor testado. Esse comportamento é chamado de <em>fall-through</em>.</p>
+                <pre><code><span class="hl-keyword">let</span> fruta <span class="hl-operator">=</span> <span class="hl-string">"maca"</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// ❌ Jeito errado (Faltou o break no caso 'maca')</span>
+<span class="hl-keyword">switch</span> (fruta) {
+  <span class="hl-keyword">case</span> <span class="hl-string">"maca"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Maçã selecionada"</span>)<span class="hl-punctuation">;</span> <span class="hl-comment">// Executa este...</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"laranja"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Laranja selecionada"</span>)<span class="hl-punctuation">;</span> <span class="hl-comment">// ... e também executa este por cascata!</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+}
+<span class="hl-comment">// Saída: "Maçã selecionada" e "Laranja selecionada"</span>
+
+<span class="hl-comment">// ✅ Jeito certo</span>
+<span class="hl-keyword">switch</span> (fruta) {
+  <span class="hl-keyword">case</span> <span class="hl-string">"maca"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Maçã selecionada"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span> <span class="hl-comment">// Para a execução aqui!</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"laranja"</span><span class="hl-punctuation">:</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Laranja selecionada"</span>)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+}</code></pre>
+                <blockquote>
+                    <p><strong>Dica Pro:</strong> O <em>fall-through</em> pode ser usado intencionalmente para agrupar múltiplos casos que compartilham a mesma resposta, como agrupar os dias do fim de semana (<code><span class="hl-keyword">case</span> <span class="hl-string">"Sabado"</span><span class="hl-punctuation">:</span> <span class="hl-keyword">case</span> <span class="hl-string">"Domingo"</span><span class="hl-punctuation">:</span></code>).</p>
+                </blockquote>
+            </section>
+
+            <section>
+                <h3>Pegadinha 2: Erro de escopo com <code class="hl-keyword">let</code> ou <code class="hl-keyword">const</code> sem chaves <code class="hl-punctuation">{}</code></h3>
+                <p>Os rótulos <code class="hl-keyword">case</code> e <code class="hl-keyword">default</code> não criam escopos de bloco independentes por padrão. Todas as variáveis declaradas com <code class="hl-keyword">let</code> ou <code class="hl-keyword">const</code> dentro do <code class="hl-keyword">switch</code> compartilham o mesmo escopo do bloco principal.</p>
+                <pre><code><span class="hl-keyword">let</span> opcao <span class="hl-operator">=</span> <span class="hl-string">"A"</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// ❌ Jeito errado (Gera SyntaxError: Identifier 'mensagem' has already been declared)</span>
+<span class="hl-keyword">switch</span> (opcao) {
+  <span class="hl-keyword">case</span> <span class="hl-string">"A"</span><span class="hl-punctuation">:</span>
+    <span class="hl-keyword">const</span> mensagem <span class="hl-operator">=</span> <span class="hl-string">"Opção A"</span><span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  <span class="hl-keyword">case</span> <span class="hl-string">"B"</span><span class="hl-punctuation">:</span>
+    <span class="hl-keyword">const</span> mensagem <span class="hl-operator">=</span> <span class="hl-string">"Opção B"</span><span class="hl-punctuation">;</span> <span class="hl-comment">// Erro! 'mensagem' já foi declarada no escopo do switch</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+}
+
+<span class="hl-comment">// ✅ Jeito certo (Isolando cada case com um bloco de chaves {})</span>
+<span class="hl-keyword">switch</span> (opcao) {
+  <span class="hl-keyword">case</span> <span class="hl-string">"A"</span><span class="hl-punctuation">:</span> {
+    <span class="hl-keyword">const</span> mensagem <span class="hl-operator">=</span> <span class="hl-string">"Opção A"</span><span class="hl-punctuation">;</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(mensagem)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  }
+  <span class="hl-keyword">case</span> <span class="hl-string">"B"</span><span class="hl-punctuation">:</span> {
+    <span class="hl-keyword">const</span> mensagem <span class="hl-operator">=</span> <span class="hl-string">"Opção B"</span><span class="hl-punctuation">;</span>
+    <span class="hl-function">console</span>.<span class="hl-function">log</span>(mensagem)<span class="hl-punctuation">;</span>
+    <span class="hl-keyword">break</span><span class="hl-punctuation">;</span>
+  }
+}</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h2>7. Resumo de Bolso (TL;DR)</h2>
+            <ul>
+                <li><strong>Comparação exata:</strong> O <code class="hl-keyword">switch</code> compara valores usando igualdade estrita (<code class="hl-operator">===</code>), testando tipo e valor.</li>
+                <li><strong>Sempre use <code class="hl-keyword">break</code>:</strong> Coloque o <code class="hl-keyword">break</code> no final de cada <code class="hl-keyword">case</code> para evitar que o código execute os casos abaixo involuntariamente.</li>
+                <li><strong>Sempre inclua o <code class="hl-keyword">default</code>:</strong> Mantenha um caso <code class="hl-keyword">default</code> como rede de segurança para tratar valores inesperados.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <h2>8. Principais Fontes de Consulta</h2>
+            <ol>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch" target="_blank" rel="noopener noreferrer">MDN Web Docs (Mozilla): switch - JavaScript</a></li>
+                <li><a href="https://www.freecodecamp.org/news/javascript-switch-case-js-switch-statement-example/" target="_blank" rel="noopener noreferrer">freeCodeCamp: Fall-Through in JavaScript Switch Statements</a></li>
+                <li><a href="https://blog.logrocket.com/practical-guide-switch-statements-javascript/" target="_blank" rel="noopener noreferrer">LogRocket Blog: A practical guide to switch statements in JavaScript</a></li>
+                <li><a href="https://stackoverflow.com/questions/5093592/what-is-the-scope-of-variables-in-javascript-switch-statement" target="_blank" rel="noopener noreferrer">Stack Overflow: What is the JavaScript variable scope in a switch / case statement?</a></li>
+                <li><a href="https://dev.to/ra1nbow1/using-object-literals-instead-of-switch-statements-in-javascript-35m7" target="_blank" rel="noopener noreferrer">DEV Community: Using Object Literals Instead of Switch Statements in JavaScript</a></li>
+            </ol>
+        </footer>
+    </article>
+</body>
+
+</html>
+

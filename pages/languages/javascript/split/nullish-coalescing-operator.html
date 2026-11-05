@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominando o Operador de Coalescência Nula (??) no JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+
+<body>
+    <article>
+        <header>
+            <h1>Dominando o Operador de Coalescência Nula (<code class="hl-operator">??</code>) no JavaScript</h1>
+            <blockquote>
+                <p><strong>Resumo:</strong> Descubra de forma simples e sem complicações como usar o operador <code class="hl-operator">??</code> para definir valores padrão no seu código sem apagar dados válidos como o número zero.</p>
+            </blockquote>
+        </header>
+
+        <section>
+            <h2>1. O que é isso na prática? (Sem Tecniquês)</h2>
+            <p>O <strong>Operador de Coalescência Nula</strong> — representado por dois sinais de interrogação seguidos (<code class="hl-operator">??</code>) — é um recurso do JavaScript usado para definir um <strong>valor de reserva</strong> (um "plano B").</p>
+            <p>Em palavras bem simples: ele olha para a informação do lado esquerdo. Se essa informação estiver completamente vazia ou ausente, ele ignora a esquerda e escolhe o valor da direita. Se a informação da esquerda existir, ele fica com a esquerda e nem olha para a direita.</p>
+            <p><small><strong>Nota linguística:</strong> De acordo com o <a href="https://www.dicio.com.br/coalescencia/" target="_blank" rel="noopener noreferrer">Dício</a>, <em>coalescência</em> significa "fusão, união, junção ou aderência do que estava separado".</small></p>
+        </section>
+
+        <section>
+            <h2>2. A Analogia do Mundo Real</h2>
+            <p>Imagine que você vai a uma lanchonete e pede um suco de laranja.</p>
+            <ul>
+                <li>Se o garçom trouxer o <strong>suco de laranja</strong> que você pediu, você bebe o suco.</li>
+                <li>Se o garçom avisar que o suco está <strong>em falta</strong> (ou seja, <code class="hl-null">null</code>, que significa "vazio intencional"), você aceita a opção padrão da casa: <strong>água</strong>.</li>
+                <li>Se o garçom nem souber o que colocar no copo porque ninguém anotou o pedido (ou seja, <code class="hl-null">undefined</code>, que significa "não definido"), você também aceita a <strong>água</strong>.</li>
+            </ul>
+            <p>Agora, se você pedir um suco <strong>sem açúcar</strong> (com zero gramas de açúcar, o número <code class="hl-number">0</code>), o açúcar é zero, mas o suco existe! Você não quer que o garçom troque seu suco por água só porque você pediu zero açúcar. O operador <code class="hl-operator">??</code> entende exatamente isso: ele só aciona a água se o copo estiver realmente sem suco nenhum (<code class="hl-null">null</code> ou <code class="hl-null">undefined</code>).</p>
+        </section>
+
+        <section>
+            <h2>3. Qual problema isso resolve?</h2>
+            <p>Antigamente, para definir um valor padrão, os programadores usavam o operador <code class="hl-operator">||</code> (conhecido como "OU lógico"). O problema é que o <code class="hl-operator">||</code> trata vários valores válidos como se fossem erros ou ausência de dados.</p>
+            <p>No JavaScript, o operador <code class="hl-operator">||</code> descarta qualquer valor considerado <em>falsy</em> (valores que a linguagem interpreta como falsos), como:</p>
+            <ul>
+                <li><code class="hl-number">0</code> (o número zero)</li>
+                <li><code class="hl-string">""</code> (um texto/string vazio)</li>
+                <li><code class="hl-boolean">false</code> (o valor booleano, que significa falso)</li>
+            </ul>
+            <p>Se um usuário configurasse o volume de um jogo para <code class="hl-number">0</code> (som desligado), o antigo <code class="hl-operator">||</code> entendia que <code class="hl-number">0</code> era "falso" e forçava o volume padrão para <code class="hl-number">50</code>! O operador <code class="hl-operator">??</code> foi inventado justamente para resolver essa falha: ele respeita o <code class="hl-number">0</code>, o <code class="hl-string">""</code> e o <code class="hl-boolean">false</code>, acionando o plano B <strong>apenas</strong> quando o dado for <code class="hl-null">null</code> ou <code class="hl-null">undefined</code>.</p>
+        </section>
+
+        <section>
+            <h2>4. Quebrando a Abstração (Anatomia do Código)</h2>
+            <p>Veja a estrutura básica de uma instrução usando o operador <code class="hl-operator">??</code>:</p>
+            <pre><code><span class="hl-keyword">let</span> resultado <span class="hl-operator">=</span> valorPrincipal <span class="hl-operator">??</span> valorPadrao<span class="hl-punctuation">;</span></code></pre>
+            <p>Dissecando cada pedaço dessa instrução:</p>
+            <dl>
+                <dt><code class="hl-keyword">let</code></dt>
+                <dd>Palavra reservada do JavaScript usada para criar uma variável (uma "caixinha" na memória do computador que guarda um dado).</dd>
+
+                <dt><code>resultado</code></dt>
+                <dd>O nome que escolhemos para a nossa variável que vai guardar a resposta final.</dd>
+
+                <dt><code class="hl-operator">=</code></dt>
+                <dd>O sinal de atribuição. Ele pega o resultado do lado direito e o guarda dentro da caixinha da esquerda.</dd>
+
+                <dt><code>valorPrincipal</code></dt>
+                <dd>O dado de entrada que queremos testar primeiro (a nossa prioridade).</dd>
+
+                <dt><code class="hl-operator">??</code></dt>
+                <dd>O Operador de Coalescência Nula. Ele testa se o <code>valorPrincipal</code> é <code class="hl-null">null</code> (ausente) ou <code class="hl-null">undefined</code> (não definido).</dd>
+
+                <dt><code>valorPadrao</code></dt>
+                <dd>O valor de reserva (nosso "plano B") que só será usado se a prioridade for nula ou não definida.</dd>
+
+                <dt><code class="hl-punctuation">;</code></dt>
+                <dd>O ponto e vírgula, que indica ao computador o fim da instrução.</dd>
+            </dl>
+        </section>
+
+        <section>
+            <h2>5. Exemplo Prático Comentado</h2>
+            <p>Abaixo está um código simples simulando a configuração de preferências em um aplicativo de leitura de livros digitais:</p>
+            <pre><code><span class="hl-comment">// Criamos uma variável para guardar o tamanho da fonte.</span>
+<span class="hl-comment">// O usuário escolheu o tamanho 0 (modo compacto especial).</span>
+<span class="hl-keyword">let</span> tamanhoFonteUsuario <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// Definimos o tamanho final usando o operador ??</span>
+<span class="hl-comment">// Como 0 NÃO é null nem undefined, o valor 0 será mantido!</span>
+<span class="hl-keyword">let</span> tamanhoFinal <span class="hl-operator">=</span> tamanhoFonteUsuario <span class="hl-operator">??</span> <span class="hl-number">16</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// Exibimos a mensagem no console (a tela de testes do programador)</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(tamanhoFinal)<span class="hl-punctuation">;</span> <span class="hl-comment">// O resultado impresso será: 0</span></code></pre>
+            <p>Se mudarmos a primeira linha para <code><span class="hl-keyword">let</span> tamanhoFonteUsuario <span class="hl-operator">=</span> <span class="hl-null">null</span><span class="hl-punctuation">;</span></code>, o código vai identificar a ausência de valor e o <code>tamanhoFinal</code> passará a ser <code class="hl-number">16</code>.</p>
+        </section>
+
+        <section>
+            <h2>6. Cuidado com a Pegadinha (Erros Comuns)</h2>
+
+            <section>
+                <h3>Pegadinha 1: Confundir <code class="hl-operator">||</code> com <code class="hl-operator">??</code> ao lidar com textos vazios ou o número zero</h3>
+                <p>O erro mais comum de quem está começando é usar o <code class="hl-operator">||</code> quando se quer aceitar respostas como <code class="hl-number">0</code> ou <code class="hl-string">""</code> (texto sem caracteres).</p>
+                <pre><code><span class="hl-keyword">let</span> nomeDigitado <span class="hl-operator">=</span> <span class="hl-string">""</span><span class="hl-punctuation">;</span> <span class="hl-comment">// O usuário limpou o campo de texto</span>
+
+<span class="hl-comment">// ❌ Jeito errado (ou confuso) com ||</span>
+<span class="hl-comment">// O || acha que "" é inválido e substitui pelo nome padrão!</span>
+<span class="hl-keyword">let</span> nome1 <span class="hl-operator">=</span> nomeDigitado <span class="hl-operator">||</span> <span class="hl-string">"Visitante"</span><span class="hl-punctuation">;</span> 
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(nome1)<span class="hl-punctuation">;</span> <span class="hl-comment">// Imprime: "Visitante" (Incorreto se o texto vazio era intencional)</span>
+
+<span class="hl-comment">// ✅ Jeito certo com ??</span>
+<span class="hl-comment">// O ?? percebe que "" é um texto real e mantém o texto vazio!</span>
+<span class="hl-keyword">let</span> nome2 <span class="hl-operator">=</span> nomeDigitado <span class="hl-operator">??</span> <span class="hl-string">"Visitante"</span><span class="hl-punctuation">;</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(nome2)<span class="hl-punctuation">;</span> <span class="hl-comment">// Imprime: ""</span></code></pre>
+            </section>
+
+            <section>
+                <h3>Pegadinha 2: Tentar misturar <code class="hl-operator">??</code> com <code class="hl-operator">&amp;&amp;</code> ou <code class="hl-operator">||</code> sem usar parênteses</h3>
+                <p>O JavaScript proíbe misturar o <code class="hl-operator">??</code> diretamente com outros operadores lógicos (<code class="hl-operator">&amp;&amp;</code> ou <code class="hl-operator">||</code>) na mesma linha sem indicar a ordem com parênteses.</p>
+                <pre><code><span class="hl-comment">// ❌ Jeito errado (Gera um erro de sintaxe e o programa não roda)</span>
+<span class="hl-keyword">let</span> opcao <span class="hl-operator">=</span> valorA <span class="hl-operator">||</span> valorB <span class="hl-operator">??</span> <span class="hl-string">"padrão"</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// ✅ Jeito certo (Usando parênteses para isolar a primeira comparação)</span>
+<span class="hl-keyword">let</span> opcao <span class="hl-operator">=</span> (valorA <span class="hl-operator">||</span> valorB) <span class="hl-operator">??</span> <span class="hl-string">"padrão"</span><span class="hl-punctuation">;</span></code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h2>7. Resumo de Bolso (TL;DR)</h2>
+            <ul>
+                <li><strong>Foco estrito:</strong> O operador <code class="hl-operator">??</code> aciona o valor padrão <strong>apenas</strong> quando o dado for <code class="hl-null">null</code> (nulo) ou <code class="hl-null">undefined</code> (não definido).</li>
+                <li><strong>Preserva dados reais:</strong> Diferente do operador <code class="hl-operator">||</code>, o <code class="hl-operator">??</code> preserva valores como <code class="hl-number">0</code>, <code class="hl-string">""</code> e <code class="hl-boolean">false</code>.</li>
+                <li><strong>Sintaxe limpa:</strong> Ele deixa seu código mais seguro e legível na hora de preencher dados ausentes em configurações e formulários.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <h2>Bibliografia</h2>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing" target="_blank" rel="noopener noreferrer">MDN Web Docs: Nullish coalescing operator (??)</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment" target="_blank" rel="noopener noreferrer">MDN Web Docs: Nullish coalescing assignment (??=)</a></li>
+                <li><a href="https://github.com/tc39/proposal-nullish-coalescing/blob/master/README.md" target="_blank" rel="noopener noreferrer">TC39 Proposal: Nullish Coalescing (README)</a></li>
+                <li><a href="https://github.com/tc39/proposal-nullish-coalescing/issues/3" target="_blank" rel="noopener noreferrer">TC39 Proposal: Issue #3</a></li>
+                <li><a href="https://github.com/tc39/proposal-nullish-coalescing/issues/15" target="_blank" rel="noopener noreferrer">TC39 Proposal: Issue #15</a></li>
+                <li><a href="https://github.com/tc39/proposal-nullish-coalescing/issues/28" target="_blank" rel="noopener noreferrer">TC39 Proposal: Issue #28</a></li>
+                <li><a href="https://javascript.info/nullish-coalescing-operator" target="_blank" rel="noopener noreferrer">The Modern JavaScript Tutorial: Nullish coalescing operator '??'</a></li>
+                <li><a href="https://stackoverflow.com/questions/61480993/when-should-i-use-nullish-coalescing-vs-logical-or" target="_blank" rel="noopener noreferrer">Stack Overflow: When should I use nullish coalescing vs logical OR?</a></li>
+            </ul>
+        </footer>
+    </article>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominando Estruturas de Repetição em JavaScript: O Guia Definitivo do for e do while</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+
+<body>
+    <article>
+        <header>
+            <h1>Dominando Estruturas de Repetição em JavaScript: O Guia Definitivo do <code class="hl-keyword">for</code> e do <code class="hl-keyword">while</code></h1>
+            <blockquote>
+                <p><strong>Resumo:</strong> Descubra de forma simples e prática como funcionam os laços <code class="hl-keyword">for</code> e <code class="hl-keyword">while</code> em JavaScript, e saiba exatamente quando usar cada um para automatizar tarefas sem travar o seu programa.</p>
+                <p><strong>Nível:</strong> Iniciante Absoluto | <strong>Leitura:</strong> ~5 min</p>
+            </blockquote>
+        </header>
+
+        <section>
+            <h2>1. O que é isso na prática? (Sem Tecniquês)</h2>
+            <p>Em programação, um laço de repetição (também chamado pelo termo em inglês <em>loop</em>) é um comando que faz o computador repetir uma mesma instrução várias vezes de forma totalmente automática.</p>
+            <p>Em vez de você escrever a mesma linha de código dez, cem ou mil vezes, você a escreve apenas uma vez dentro do laço e define quantas vezes ou até quando o computador deve executá-la.</p>
+        </section>
+
+        <section>
+            <h2>2. A Analogia do Mundo Real</h2>
+            <p>Pense em tarefas repetitivas do seu dia a dia:</p>
+            <ul>
+                <li><strong>O laço <code class="hl-keyword">for</code> (Repetição com meta definida):</strong> É como decidir ler exatamente 20 páginas de um livro. Você sabe o ponto de partida (página 1), o limite final (página 20) e avança uma página por vez até concluir a meta.</li>
+                <li><strong>O laço <code class="hl-keyword">while</code> (Repetição baseada em condição):</strong> É como ler um livro procurando por uma palavra específica. Você continua virando as páginas enquanto (<em>while</em>) não a encontrar. Você não sabe de antemão se precisará ler 2 ou 50 páginas, mas sabe a regra que fará você parar.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Qual problema isso resolve?</h2>
+            <p>Imagine que você precisa exibir no console (a tela de testes do programador) os números de 0 a 4. Sem os laços de repetição, você teria que escrever:</p>
+            <pre><code><span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-number">0</span>)<span class="hl-punctuation">;</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-number">1</span>)<span class="hl-punctuation">;</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-number">2</span>)<span class="hl-punctuation">;</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-number">3</span>)<span class="hl-punctuation">;</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-number">4</span>)<span class="hl-punctuation">;</span></code></pre>
+            <p>Se você precisasse listar 1.000 produtos ou processar uma lista enorme de clientes, escrever linha por linha seria impossível. Além disso, quando a repetição depende da ação do usuário (como digitar uma senha até acertar), não há como prever quantas linhas digitar.</p>
+            <p>Os laços resolvem isso condensando a repetição em poucas linhas inteligentes.</p>
+        </section>
+
+        <section>
+            <h2>4. Quebrando a Abstração (Anatomia do Código)</h2>
+            <p>Veja a estrutura básica dos dois principais laços em JavaScript:</p>
+            <pre><code><span class="hl-comment">// Estrutura do laço for</span>
+<span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span> i <span class="hl-operator">&lt;</span> <span class="hl-number">5</span><span class="hl-punctuation">;</span> i<span class="hl-operator">++</span>) {
+  <span class="hl-comment">// Código que será repetido</span>
+}
+
+<span class="hl-comment">// Estrutura do laço while</span>
+<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+<span class="hl-keyword">while</span> (i <span class="hl-operator">&lt;</span> <span class="hl-number">5</span>) {
+  <span class="hl-comment">// Código que será repetido</span>
+  i<span class="hl-operator">++</span><span class="hl-punctuation">;</span>
+}</code></pre>
+            <p>Dissecando a função de cada pedaço da sintaxe:</p>
+            <dl>
+                <dt><code class="hl-keyword">for</code></dt>
+                <dd>Palavra reservada do JavaScript que inicia o laço com contagem integrada.</dd>
+
+                <dt><code class="hl-punctuation">(</code> e <code class="hl-punctuation">)</code></dt>
+                <dd>
+                    Parênteses que contêm as 3 regras do <code class="hl-keyword">for</code> separadas por ponto e vírgula <code class="hl-punctuation">;</code>:
+                    <ul>
+                        <li><code><span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span></code>: Inicialização, onde criamos a variável de contagem.</li>
+                        <li><code>i <span class="hl-operator">&lt;</span> <span class="hl-number">5</span><span class="hl-punctuation">;</span></code>: Condição (teste booleano) para decidir se o laço continua rodando.</li>
+                        <li><code>i<span class="hl-operator">++</span></code>: Incremento (aumento de 1 em 1) executado ao fim de cada volta.</li>
+                    </ul>
+                </dd>
+
+                <dt><code class="hl-keyword">while</code></dt>
+                <dd>Palavra reservada que significa "enquanto", usada para repetir a instrução enquanto a condição for verdadeira.</dd>
+
+                <dt><code class="hl-punctuation">{</code> e <code class="hl-punctuation">}</code></dt>
+                <dd>Chaves que delimitam o bloco de código a ser executado em cada volta (<em>iteração</em>).</dd>
+            </dl>
+        </section>
+
+        <section>
+            <h2>5. Exemplo Prático Comentado</h2>
+
+            <section>
+                <h3>Exemplo 1: Somando números de 1 a 5 com o <code class="hl-keyword">for</code></h3>
+                <p>Quando sabemos o número exato de repetições, o <code class="hl-keyword">for</code> deixa o código limpo e organizado:</p>
+                <pre><code><span class="hl-comment">// Variável para guardar o resultado acumulado</span>
+<span class="hl-keyword">let</span> total <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// O laço inicia em i = 1 e repete até i ser igual a 5</span>
+<span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">1</span><span class="hl-punctuation">;</span> i <span class="hl-operator">&lt;=</span> <span class="hl-number">5</span><span class="hl-punctuation">;</span> i<span class="hl-operator">++</span>) {
+  <span class="hl-comment">// Adiciona o valor atual de i ao total</span>
+  total <span class="hl-operator">+=</span> i<span class="hl-punctuation">;</span>
+}
+
+<span class="hl-comment">// Exibe o resultado final no console</span>
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(total)<span class="hl-punctuation">;</span> <span class="hl-comment">// Resultado impresso: 15</span></code></pre>
+            </section>
+
+            <section>
+                <h3>Exemplo 2: Contagem regressiva com o <code class="hl-keyword">while</code></h3>
+                <p>Quando a repetição depende do estado de uma variável que muda ao longo do processo:</p>
+                <pre><code><span class="hl-comment">// Definimos o ponto de partida fora do laço</span>
+<span class="hl-keyword">let</span> contador <span class="hl-operator">=</span> <span class="hl-number">5</span><span class="hl-punctuation">;</span>
+
+<span class="hl-comment">// Repete enquanto o contador for maior que 0</span>
+<span class="hl-keyword">while</span> (contador <span class="hl-operator">&gt;</span> <span class="hl-number">0</span>) {
+  <span class="hl-comment">// Exibe o número atual da contagem</span>
+  <span class="hl-function">console</span>.<span class="hl-function">log</span>(contador)<span class="hl-punctuation">;</span>
+  
+  <span class="hl-comment">// Diminui 1 do contador a cada volta</span>
+  contador <span class="hl-operator">=</span> contador <span class="hl-operator">-</span> <span class="hl-number">1</span><span class="hl-punctuation">;</span>
+}
+
+<span class="hl-function">console</span>.<span class="hl-function">log</span>(<span class="hl-string">"Decolagem!"</span>)<span class="hl-punctuation">;</span></code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h2>6. Cuidado com a Pegadinha (Erros Comuns)</h2>
+
+            <section>
+                <h3>Pegadinha 1: O terrível Loop Infinito no <code class="hl-keyword">while</code></h3>
+                <p>Se você esquecer de atualizar a variável de controle dentro do <code class="hl-keyword">while</code>, a condição será sempre verdadeira e o programa nunca vai parar, travando o navegador!</p>
+                <pre><code><span class="hl-comment">// ❌ Jeito errado (Faltou alterar o valor de 'i', gerando um loop infinito)</span>
+<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+<span class="hl-keyword">while</span> (i <span class="hl-operator">&lt;</span> <span class="hl-number">5</span>) {
+  <span class="hl-function">console</span>.<span class="hl-function">log</span>(i)<span class="hl-punctuation">;</span>
+  <span class="hl-comment">// 'i' continua sendo 0 para sempre!</span>
+}
+
+<span class="hl-comment">// ✅ Jeito certo (Atualizar 'i' garante que o laço chegue ao fim)</span>
+<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+<span class="hl-keyword">while</span> (i <span class="hl-operator">&lt;</span> <span class="hl-number">5</span>) {
+  <span class="hl-function">console</span>.<span class="hl-function">log</span>(i)<span class="hl-punctuation">;</span>
+  i<span class="hl-operator">++</span><span class="hl-punctuation">;</span> <span class="hl-comment">// Incrementa 'i' em +1 a cada volta até parar</span>
+}</code></pre>
+            </section>
+
+            <section>
+                <h3>Pegadinha 2: Usar <code class="hl-keyword">while</code> para simples contagens</h3>
+                <p>Embora funcione, usar <code class="hl-keyword">while</code> para contagens com número fixo de voltas deixa o código mais longo e propenso a erros.</p>
+                <pre><code><span class="hl-comment">// ❌ Jeito prolixo (Inicialização e incremento ficam distantes)</span>
+<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span>
+<span class="hl-keyword">while</span> (i <span class="hl-operator">&lt;</span> <span class="hl-number">10</span>) {
+  <span class="hl-function">console</span>.<span class="hl-function">log</span>(i)<span class="hl-punctuation">;</span>
+  i<span class="hl-operator">++</span><span class="hl-punctuation">;</span>
+}
+
+<span class="hl-comment">// ✅ Jeito limpo (Início, condição e incremento juntos na mesma linha)</span>
+<span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> i <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-punctuation">;</span> i <span class="hl-operator">&lt;</span> <span class="hl-number">10</span><span class="hl-punctuation">;</span> i<span class="hl-operator">++</span>) {
+  <span class="hl-function">console</span>.<span class="hl-function">log</span>(i)<span class="hl-punctuation">;</span>
+}</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h2>7. Resumo de Bolso (TL;DR)</h2>
+            <ul>
+                <li><strong>Use o <code class="hl-keyword">for</code></strong> quando souber exatamente quantas vezes o código deve ser repetido.</li>
+                <li><strong>Use o <code class="hl-keyword">while</code></strong> quando a repetição depender de uma condição dinâmica sem contagem predeterminada.</li>
+                <li><strong>Evite travamentos:</strong> Certifique-se sempre de que o valor testado na condição é alterado dentro do laço para não criar um loop infinito.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <h2>Fontes</h2>
+            <ol>
+                <li><a href="https://javascript.info/while-for" target="_blank" rel="noopener noreferrer">The Modern JavaScript Tutorial: Loops: while and for</a></li>
+                <li><a href="https://www.freecodecamp.org/news/javascript-loops-explained-for-loop-while-loop-do-while-loop-and-more/" target="_blank" rel="noopener noreferrer">freeCodeCamp: JavaScript Loops Explained</a></li>
+                <li><a href="https://www.geeksforgeeks.org/dsa/difference-between-for-loop-and-while-loop-in-programming/" target="_blank" rel="noopener noreferrer">GeeksforGeeks: Difference between for loop and while loop in Programming</a></li>
+                <li><a href="https://programiz.pro/" target="_blank" rel="noopener noreferrer">Programiz PRO</a></li>
+                <li><a href="https://dev.to/shahrouzlogs/python-loops-explained-for-vs-while-beginner-guide-k83" target="_blank" rel="noopener noreferrer">DEV Community: Loops Explained: for vs while</a></li>
+            </ol>
+        </footer>
+    </article>
+</body>
+
+</html>
+
